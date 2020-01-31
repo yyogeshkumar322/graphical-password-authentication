@@ -2,11 +2,6 @@
 <html>
 <head>
 <style>
-.c3{
-	float:left;
-	position:absolute;
-	width:25%;
-}
 #bg{
 width:70%px;
 height:70%px;
@@ -14,11 +9,16 @@ background-image:url("p1.jpg");
 background-size:cover;
 position:absolute;
 }
+.c3{
+	float:left;
+	position:absolute;
+	width:25%;
+}
 #c1{
 position:absolute;
 left:25%;
 width:50%;
-height:98%;
+height:70%;
 }
 #bt,#p{
 display:none;
@@ -26,17 +26,16 @@ display:none;
 </style>
 </head>
 <body bgcolor="gray">
-<br>
 <center>
 <form>
 <label>User Id</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label><input type="text" id="uid"/></label>
 </form>
-</center>
 <br>
+</center>
+<div class="c2"></div>
 <div id="c1">
-<center>
 <div id="bg">
-<table  cellpadding="20" style="height:300px; weight:300px; " class="15*15">
+<table  cellpadding="20" style="height:500px; weight:500px; " class="15*15">
 <tr>
 <td id="1" class="tab" onclick="ct(1)"></td>
 <td id="2" class="tab" onclick="ct(2)"></td>
@@ -292,35 +291,31 @@ display:none;
 <td id="224" class="tab" onclick="ct(224)"></td>
 <td id="225" class="tab" onclick="ct(225)"></td>
 </tr>
-</table></div></center>
+</table>
+</div>
 </div>
 <div class="c3">
-<h3>Select the places of image you registered previously as password</h3><br>
-<h3><p id="c"></p></h3>
-<br>
-<button onclick="get()" id="bt">Login</button><br><br><br>
-<h2 id="p">Successful</h2>
+<h3>Set the password with help of image and remember the places you select on image</h3><br><br>
+<h3 id="c"></h3><br>
+<button onclick="set()" id="bt">Register</button><br><br><br>
+<h2 id="p1"></h2>
 </div>
 
 <script>
 var c=1;
 var st="";
-var res="";
 function ct(x){
+if(c==5){
+c=1;
+document.getElementById("c").innerHTML="5 Places are selected Click register";
+document.getElementById("bt").style.display="inline";
 var v=x.toString();
 st=st+v;
-if(c==5){
-	c=1;
-	document.getElementById("c").innerHTML="5 places are selected click on Login";
-	document.getElementById("bt").style.display="inline";
-	res=st;
-	st="";
-	return res;
+return st;
 }
 else{
 	c=c+1;
 	document.getElementById("bt").style.display="none";
-	document.getElementById("p").style.display="none";
 	switch(c){
 	case 2:	var el_up = document.getElementById("bg");   
             el_up.style.backgroundImage ="url('p2.jpg')"; 
@@ -343,22 +338,15 @@ else{
 			document.getElementById("c").innerHTML="";
 	}
 }
+var v=x.toString();
+st=st+v;
 }
-
-function get(){
+function set(){
 window.localStorage;
-var u=localStorage.getItem("uid");
-var p=localStorage.getItem("pwd");
-var lu=document.getElementById("uid").value;
-if(lu==u){
-	if(res==p)
-		document.getElementById("p").style.display="inline";
-	else
-		alert("Please select the correct places of images");
-		
-}
-else
-	alert("Enter valid User ID");
+localStorage.setItem("uid",document.getElementById("uid").value);
+localStorage.setItem("pwd",st);
+document.getElementById("c").innerHTML="";
+document.getElementById("p1").innerHTML="Registered Successfully";
 }
 </script>
 
